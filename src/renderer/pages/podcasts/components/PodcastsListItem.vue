@@ -12,7 +12,7 @@
       <div style="min-width: 60px">
         <div class="subtitle mr-2 d-flex justify-content-end">
           <div  v-if="isPlayed">
-            <play :data="playJson" style="width: 20px"/>
+            <icon :data="soundJson" style="width: 20px"/>
           </div>
           <div class="text-right ml-2">
             {{ duration.hours }}:{{ duration.minutes }}
@@ -28,12 +28,12 @@
 <script>
   import moment from 'moment'
   import {mapState} from 'vuex'
-  import Play from '../../../components/Icons/Play'
-  import playJson from '../../../assets/json/play'
+  import Icon from '../../../components/Icon'
+  import soundJson from '../../../assets/json/sound'
 
   export default {
     name: 'PodcastsListItem',
-    components: {Play},
+    components: {Icon},
     props: {
       data: {
         type: Object,
@@ -42,7 +42,7 @@
     },
     data: () => ({
       showDescription: false,
-      playJson
+      soundJson
     }),
     computed: {
       ...mapState('podcasts', ['single']),

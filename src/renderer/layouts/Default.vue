@@ -20,7 +20,7 @@
       ...mapState('app', ['play']),
       style () {
         return {
-          top: this.play.episod ? 0 : '-70px'
+          top: this.play.episod ? 0 : '-75px'
         }
       }
     }
@@ -30,16 +30,16 @@
 
 <style>
   .play {
-    margin-top: 65px;
+    margin-top: 85px;
   }
 
   .player {
     padding: 10px;
-    top: -50px;
+    top: -75px;
     background: #fff;
     position: fixed;
     width: 100%;
-    height: 65px;
+    height: 75px;
     box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.02), 0px 4px 20px rgba(0, 0, 0, 0.05);
     transition: all 0.5s ease;
     z-index: 999;

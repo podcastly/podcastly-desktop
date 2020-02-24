@@ -4,12 +4,10 @@ import ROUTES from '../enums/routes'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '*',
-      meta: {requireAuth: true},
-      props: true,
       component: () => import('@/layouts/Default'),
       children: [
         {
@@ -18,16 +16,27 @@ export default new Router({
           component: () => import('@/pages/Welcome')
         },
         {
+          path: '/favorites',
+          name: ROUTES.FAVORITES,
+          component: () => import('@/pages/Favorites')
+        },
+        {
           path: '/podcasts/:id',
           name: ROUTES.PODCASTS.VIEW,
           component: () => import('@/pages/podcasts/View'),
           props: true
-        },
-        {
-          path: '*',
-          redirect: {name: ROUTES.WELCOME}
         }
+        // {
+        //   path: '*',
+        //   redirect: {name: ROUTES.WELCOME}
+        // }
       ]
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  console.log({ to })
+  next()
+})
+export default router

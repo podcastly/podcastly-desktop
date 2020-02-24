@@ -1,32 +1,30 @@
 <template>
   <div class="player">
-    <div class="d-flex">
-      <div>
-        <play
-          :data="play"
-          class="mr-2"
-          style="width: 20px"
-        />
-      </div>
-      <div>
-        <div class="subtitle">{{ episod.title }}</div>
+    <div class="d-flex justify-content-between">
+      <div class="mt-2" style="max-width: 400px; min-width: 400px">
+        <div class="subtitle text-truncate">{{ episod.title }}</div>
         <sup @click="toPodcast" style="cursor: pointer">{{ podcast.author }}</sup>
       </div>
-      <audio id="music" preload="all">
-        <source :src="src">
-      </audio>
+
+      <div class="flex-fill">
+        <vue-plyr>
+          <audio>
+            <source :src="src">
+          </audio>
+        </vue-plyr>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
-  import Play from './Icons/Play'
-  import play from '../assets/json/play'
   import ROUTES from '../enums/routes'
+  import VuePlyr from 'vue-plyr/dist/vue-plyr.ssr'
+  import 'plyr/dist/plyr.css'
 
   export default {
-    components: {Play},
+    components: { VuePlyr },
     props: {
       podcast: {
         type: Object,
@@ -37,17 +35,10 @@
         default: () => ({})
       }
     },
-    data: () => ({
-      play
-    }),
     computed: {
       src () {
         return `https://track.pdcstly.com/episod/${this.episod.id}`
       }
-    },
-    mounted () {
-      let music = document.getElementById('music')
-      music.play()
     },
     methods: {
       toPodcast () {

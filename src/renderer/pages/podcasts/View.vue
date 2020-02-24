@@ -8,6 +8,27 @@
         <div>
           {{ single.language }}
         </div>
+
+        <div class="flex-fill text-right mr-3">
+          <button
+            v-if="!isFavorite"
+            @click="onAdd"
+            type="button"
+            class="btn btn-warning"
+          >
+            Add to favorite
+          </button>
+          <button
+            v-else
+            @click="onRemove"
+            type="button"
+            class="btn btn-light"
+          >
+            Remove
+          </button>
+
+        </div>
+
       </div>
 
 
@@ -46,7 +67,7 @@
 </template>
 
 <script>
-  import {mapActions, mapState} from 'vuex'
+  import {mapActions, mapState, mapMutations} from 'vuex'
   import NavBar from '../../components/NavBar'
   import PodcastsList from './components/PodcastsList'
 
@@ -77,6 +98,10 @@
     },
     computed: {
       ...mapState('podcasts', ['single', 'episodes']),
+      ...mapState('favorites', {favorites: 'list'}),
+      isFavorite () {
+        return !!this.favorites.find(f => f.type === 'podcast' && f.id === this.id)
+      },
       style () {
         const {vibrant} = this.single.styles
         return {
@@ -85,7 +110,20 @@
       }
     },
     methods: {
-      ...mapActions('podcasts', ['getSingle', 'getEpisodes'])
+      onAdd () {
+        this.add({
+          id: this.id,
+          type: 'podcast'
+        })
+      },
+      onRemove () {
+        this.remove({
+          id: this.id,
+          type: 'podcast'
+        })
+      },
+      ...mapActions('podcasts', ['getSingle', 'getEpisodes']),
+      ...mapMutations('favorites', ['add', 'remove'])
     }
   }
 </script>

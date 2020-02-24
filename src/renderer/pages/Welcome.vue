@@ -19,6 +19,7 @@
   import ExplorerCollections from '../components/Explorer/ExplorerCollections'
   import ExplorerPodcasts from '../components/Explorer/ExplorerPodcasts'
   export default {
+    name: 'WelcomePage',
     components: {ExplorerCollections, ExplorerPodcasts},
     computed: {
       ...mapGetters('explorer', ['collections', 'podcasts'])

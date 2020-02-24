@@ -1,21 +1,19 @@
 import Api from '../../api'
 
-console.log({ Api })
-
 const state = {
   list: []
 }
 
 const mutations = {
-  APPEND_LIST (state, payload) {
-    state.list.push(...payload)
+  SET_LIST (state, payload) {
+    state.list = payload
   }
 }
 
 const actions = {
   getList ({commit}) {
     const result = Api.Regions.getList()
-    console.log({result})
+    commit('SET_LIST', result)
   }
 }
 

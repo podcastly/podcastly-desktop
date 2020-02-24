@@ -11,16 +11,26 @@
       data: {
         type: Object,
         default: () => ({ })
+      },
+      loop: {
+        type: Boolean,
+        default: true
+      },
+      autoplay: {
+        type: Boolean,
+        default: false
       }
     },
     mounted () {
-      lottie.loadAnimation({
+      const anim = lottie.loadAnimation({
         container: this.$refs.container,
         renderer: 'svg',
-        loop: true,
-        autoplay: true,
+        loop: this.loop,
+        autoplay: this.autoplay,
         animationData: this.data
       })
+
+      this.$emit('anim', anim)
     }
   }
 </script>

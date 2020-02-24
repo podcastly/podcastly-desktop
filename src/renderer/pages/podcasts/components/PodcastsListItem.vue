@@ -1,5 +1,5 @@
 <template>
-  <div class="podcasts-item" @click="onPlay">
+  <div class="podcasts-item" @click="onPlay" :class="{played: isPlayed}">
 
     <div class="d-flex justify-content-start">
       <div>
@@ -12,7 +12,7 @@
       <div style="min-width: 60px">
         <div class="subtitle mr-2 d-flex justify-content-end">
           <div  v-if="isPlayed">
-            <icon :data="soundJson" style="width: 20px"/>
+            <icon :data="soundJson" style="width: 20px" autoplay/>
           </div>
           <div class="text-right ml-2">
             {{ duration.hours }}:{{ duration.minutes }}
@@ -73,7 +73,7 @@
     },
     methods: {
       onPlay () {
-        this.$store.commit('app/SET_PLAY', {
+        this.$store.commit('app/setPlay', {
           podcast: this.single,
           episod: this.data
         })
@@ -91,6 +91,11 @@
     margin: 10px;
     padding: 15px 10px;
     box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.02), 0px 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+
+    &.played {
+      border: 1px solid #B5E24F;
+    }
 
     .avatar {
       border-radius: 50%;

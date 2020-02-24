@@ -7,7 +7,7 @@
       </div>
 
       <div class="flex-fill">
-        <vue-plyr>
+        <vue-plyr ref="plyr">
           <audio>
             <source :src="src">
           </audio>
@@ -24,7 +24,7 @@
   import 'plyr/dist/plyr.css'
 
   export default {
-    components: { VuePlyr },
+    components: {VuePlyr},
     props: {
       podcast: {
         type: Object,
@@ -35,7 +35,19 @@
         default: () => ({})
       }
     },
+    watch: {
+      episod: {
+        handler (before, after) {
+          if (before.id !== after.id) {
+            this.player.play()
+          }
+        }
+      }
+    },
     computed: {
+      player () {
+        return this.$refs.plyr.player
+      },
       src () {
         return `https://track.pdcstly.com/episod/${this.episod.id}`
       }

@@ -18,7 +18,7 @@
         </template>
         <div v-else>
           No results were found for
-          <strong>{{ data.query }}</strong>.
+          <strong>{{ query }}</strong>.
         </div>
       </template>
     </div>
@@ -33,34 +33,33 @@
     name: 'SearchList',
     components: {SearchListItem},
     props: {
-      data: {
-        type: Object,
-        default: () => ({})
+      query: {
+        type: String,
+        default: null
       }
     },
     data: () => ({
       isLoading: false
     }),
     watch: {
-      data: {
+      query: {
         immediate: true,
         handler (value) {
           if (value) {
-            const {query} = value
-            this.search(query)
+            this.search(value)
           }
         }
       }
     },
     computed: {
-      ...mapState('app', ['list'])
+      ...mapState('search', ['list'])
     },
     methods: {
-      ...mapActions('app', ['getSearch']),
+      ...mapActions('search', ['getList']),
       async search (query) {
         try {
           this.isLoading = true
-          this.getSearch(query)
+          this.getList(query)
         } finally {
           this.isLoading = false
         }

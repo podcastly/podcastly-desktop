@@ -1,7 +1,7 @@
 <template>
   <div>
-    <template v-if="search">
-      <search-list :data="search" />
+    <template v-if="query">
+      <search-list :query="query" />
     </template>
     <template v-else>
       <explorer-collections
@@ -30,7 +30,7 @@
     components: {ExplorerCollections, ExplorerPodcasts, SearchList},
     computed: {
       ...mapGetters('explorer', ['collections', 'podcasts']),
-      ...mapState('app', ['search'])
+      ...mapState('search', ['query'])
     }
   }
 </script>

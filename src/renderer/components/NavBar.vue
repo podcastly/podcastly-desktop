@@ -32,31 +32,27 @@
       query: {
         handler (value) {
           if (value) {
-            const {name} = this.$route
-            this.setSearch({
-              page: name,
-              query: value
-            })
+            this.setQuery(value)
           } else {
-            this.resetSearch()
+            this.reset()
           }
         }
       }
     },
     methods: {
-      ...mapMutations('app', ['setSearch']),
-      resetSearch () {
+      ...mapMutations('search', ['setQuery']),
+      reset () {
         this.query = null
-        this.setSearch()
+        this.setQuery()
       },
       toFavorites () {
-        this.resetSearch()
+        this.reset()
         this.$router.push({
           name: ROUTES.FAVORITES
         })
       },
       toExplorer () {
-        this.resetSearch()
+        this.reset()
         this.$router.push({
           name: ROUTES.WELCOME
         })

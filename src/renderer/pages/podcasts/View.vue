@@ -104,9 +104,10 @@
         return !!this.list.find(f => f.id === this.id)
       },
       style () {
-        const {vibrant} = this.single.styles
+        const {vibrant, vibrantText = '#000'} = this.single.styles
         return {
-          backgroundColor: vibrant
+          backgroundColor: vibrant,
+          color: vibrantText
         }
       }
     },

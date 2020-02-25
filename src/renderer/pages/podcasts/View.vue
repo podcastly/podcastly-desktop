@@ -11,12 +11,12 @@
 
         <div class="flex-fill text-right mr-3">
           <button
-            v-if="!isFavorite"
+            v-if="!isSubscription"
             @click="onAdd"
             type="button"
             class="btn btn-warning"
           >
-            Add to favorite
+            Subscription
           </button>
           <button
             v-else
@@ -24,7 +24,7 @@
             type="button"
             class="btn btn-light"
           >
-            Remove
+            Subscribed
           </button>
 
         </div>
@@ -87,7 +87,7 @@
       try {
         const {id} = this
         await Promise.all([
-          this.getSingle({id}),
+          this.getSingle(id),
           this.getEpisodes({id})
         ])
 
@@ -98,9 +98,9 @@
     },
     computed: {
       ...mapState('podcasts', ['single', 'episodes']),
-      ...mapState('favorites', {favorites: 'list'}),
-      isFavorite () {
-        return !!this.favorites.find(f => f.type === 'podcast' && f.id === this.id)
+      ...mapState('subscriptions', {subscriptions: 'list'}),
+      isSubscription () {
+        return !!this.subscriptions.find(f => f.type === 'podcast' && f.id === this.id)
       },
       style () {
         const {vibrant} = this.single.styles
@@ -123,7 +123,7 @@
         })
       },
       ...mapActions('podcasts', ['getSingle', 'getEpisodes']),
-      ...mapMutations('favorites', ['add', 'remove'])
+      ...mapMutations('subscriptions', ['add', 'remove'])
     }
   }
 </script>

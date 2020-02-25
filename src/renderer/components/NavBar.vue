@@ -3,8 +3,11 @@
     <div>
       <div class="nav">
         <a class="nav-link" @click="toExplorer" href="#">Explorer</a>
-        <router-link tag="a" class="nav-link" to="/categories">Categories</router-link>
-        <a class="nav-link" @click="toFavorites" href="#">Favorites</a>
+        <a class="nav-link" @click="toCategories">Categories</a>
+        <a class="nav-link" @click="toSubscriptions" href="#">
+          Subscriptions
+          <sup v-if="count > 0">{{ count }}</sup>
+        </a>
       </div>
     </div>
     <div class="mr-3">
@@ -20,7 +23,7 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
+  import {mapState, mapMutations} from 'vuex'
   import ROUTES from '../enums/routes'
 
   export default {
@@ -32,6 +35,11 @@
       query: {
         handler (value) {
           if (value) {
+            if (!this.isWelcome) {
+              this.$router.push({
+                name: ROUTES.WELCOME
+              })
+            }
             this.setQuery(value)
           } else {
             this.reset()
@@ -39,13 +47,19 @@
         }
       }
     },
+    computed: {
+      isWelcome () {
+        return this.$route.name === ROUTES.WELCOME
+      },
+      ...mapState('subscriptions', {count: (state) => state.list.length})
+    },
     methods: {
       ...mapMutations('search', ['setQuery']),
       reset () {
         this.query = null
         this.setQuery()
       },
-      toFavorites () {
+      toSubscriptions () {
         this.reset()
         this.$router.push({
           name: ROUTES.FAVORITES
@@ -55,6 +69,12 @@
         this.reset()
         this.$router.push({
           name: ROUTES.WELCOME
+        })
+      },
+      toCategories () {
+        this.reset()
+        this.$router.push({
+          name: ROUTES.CATEGORIES
         })
       }
     }

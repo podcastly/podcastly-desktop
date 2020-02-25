@@ -16,9 +16,9 @@ const router = new Router({
           component: () => import('@/pages/Welcome')
         },
         {
-          path: '/favorites',
+          path: '/subscriptions',
           name: ROUTES.FAVORITES,
-          component: () => import('@/pages/Favorites')
+          component: () => import('@/pages/subscriptions/Index')
         },
         {
           path: '/podcasts/:id',

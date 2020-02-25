@@ -19,6 +19,7 @@ const actions = {
   async getSingle ({commit}, id) {
     const {data} = await Api.Podcasts.getSingle(id)
     commit('SET_SINGLE', data)
+    return data
   },
   async getEpisodes ({commit}, id) {
     const { data } = await Api.Podcasts.getEpisodes(id)

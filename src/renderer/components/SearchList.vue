@@ -68,8 +68,3 @@
   }
 </script>
 
-<style>
-  .search-list {
-    background: #F8F9FB;
-  }
-</style>

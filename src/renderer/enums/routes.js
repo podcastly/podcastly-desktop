@@ -1,5 +1,6 @@
 const WELCOME = 'welcome'
 const FAVORITES = 'favorites'
+const CATEGORIES = 'categories'
 
 const PODCASTS = {
   VIEW: 'podcasts-view'
@@ -8,5 +9,6 @@ const PODCASTS = {
 export default {
   WELCOME,
   PODCASTS,
-  FAVORITES
+  FAVORITES,
+  CATEGORIES
 }

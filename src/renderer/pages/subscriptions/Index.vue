@@ -1,7 +1,13 @@
 <template>
   <div>
     <h4 class="title mx-3">Subscriptions</h4>
-    <subscriptions-podcast-list :data="podcasts" />
+    <subscriptions-podcast-list
+      v-if="list.length"
+      :data="list"
+    />
+    <div class="px-3" v-else>
+      No subscriptions
+    </div>
   </div>
 </template>
 
@@ -12,24 +18,14 @@
   export default {
     name: 'SubscriptionsPage',
     components: {SubscriptionsPodcastList},
-    data: () => ({
-      podcasts: []
-    }),
     computed: {
       ...mapState('subscriptions', ['list'])
     },
     created () {
-      this.getPodcasts()
+      this.getList()
     },
     methods: {
-      ...mapActions('podcasts', ['getSingle']),
-      async getPodcasts () {
-        const ids = this.list.filter(l => l.type === 'podcast').map(l => l.id)
-        for (const id of ids) {
-          const podcast = await this.getSingle(id)
-          this.podcasts.push(podcast)
-        }
-      }
+      ...mapActions('subscriptions', ['getList'])
     }
   }
 </script>

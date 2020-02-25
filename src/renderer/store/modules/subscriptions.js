@@ -1,19 +1,41 @@
+import Api from '../../api'
+
 const state = {
   list: []
 }
 
 const mutations = {
-  add (state, entity) {
-    state.list.push(entity)
+  setList (state, payload) {
+    state.list = payload.map(p => p.podcast)
+  }
+}
+
+const actions = {
+  async getList ({commit}) {
+    const { data } = await Api.Subscribe.getList()
+    commit('setList', data.data)
   },
-  remove (state, entity) {
-    const index = state.list.findIndex(f => f.type === entity.type && f.id === entity.id)
-    state.list.splice(index, 1)
+  async subscribe ({dispatch}, pid) {
+    try {
+      await Api.Subscribe.subscribe(pid)
+      dispatch('getList')
+    } catch (e) {
+      throw new Error(e)
+    }
+  },
+  async unsubscribe ({dispatch}, pid) {
+    try {
+      await Api.Subscribe.unsubscribe(pid)
+      dispatch('getList')
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 }
 
 export default {
   namespaced: true,
   state,
-  mutations
+  mutations,
+  actions
 }

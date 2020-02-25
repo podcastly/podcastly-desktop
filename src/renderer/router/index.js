@@ -16,6 +16,11 @@ const router = new Router({
           component: () => import('@/pages/Welcome')
         },
         {
+          path: '/account',
+          name: ROUTES.ACCOUNT,
+          component: () => import('@/pages/Account')
+        },
+        {
           path: '/subscriptions',
           name: ROUTES.FAVORITES,
           component: () => import('@/pages/subscriptions/Index')

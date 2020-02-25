@@ -12,7 +12,7 @@
         <div class="flex-fill text-right mr-3">
           <button
             v-if="!isSubscription"
-            @click="onAdd"
+            @click="onSubscribe"
             type="button"
             class="btn btn-warning"
           >
@@ -20,7 +20,7 @@
           </button>
           <button
             v-else
-            @click="onRemove"
+            @click="onUnsubscribe"
             type="button"
             class="btn btn-light"
           >
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import {mapActions, mapState, mapMutations} from 'vuex'
+  import {mapActions, mapState} from 'vuex'
   import NavBar from '../../components/NavBar'
   import PodcastsList from './components/PodcastsList'
 
@@ -88,19 +88,20 @@
         const {id} = this
         await Promise.all([
           this.getSingle(id),
-          this.getEpisodes({id})
+          this.getEpisodes({id}),
+          this.getList()
         ])
-
-        this.isLoaded = true
       } catch (e) {
         console.log(e)
+      } finally {
+        this.isLoaded = true
       }
     },
     computed: {
       ...mapState('podcasts', ['single', 'episodes']),
-      ...mapState('subscriptions', {subscriptions: 'list'}),
+      ...mapState('subscriptions', ['list']),
       isSubscription () {
-        return !!this.subscriptions.find(f => f.type === 'podcast' && f.id === this.id)
+        return !!this.list.find(f => f.id === this.id)
       },
       style () {
         const {vibrant} = this.single.styles
@@ -110,20 +111,14 @@
       }
     },
     methods: {
-      onAdd () {
-        this.add({
-          id: this.id,
-          type: 'podcast'
-        })
-      },
-      onRemove () {
-        this.remove({
-          id: this.id,
-          type: 'podcast'
-        })
-      },
       ...mapActions('podcasts', ['getSingle', 'getEpisodes']),
-      ...mapMutations('subscriptions', ['add', 'remove'])
+      ...mapActions('subscriptions', ['getList', 'subscribe', 'unsubscribe']),
+      onSubscribe () {
+        this.subscribe(this.single.id)
+      },
+      onUnsubscribe () {
+        this.unsubscribe(this.single.id)
+      }
     }
   }
 </script>

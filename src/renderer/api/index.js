@@ -4,6 +4,7 @@ import Podcasts from './Podcasts'
 import Search from './Search'
 import Categories from './Categories'
 import Auth from './Auth'
+import Subscribe from './Subscribe'
 
 export default {
   Exporer,
@@ -11,5 +12,6 @@ export default {
   Podcasts,
   Search,
   Categories,
-  Auth
+  Auth,
+  Subscribe
 }

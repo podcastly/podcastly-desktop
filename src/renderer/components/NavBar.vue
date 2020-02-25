@@ -21,7 +21,7 @@
 
     <div class="mr-3">
       <template v-if="account">
-        {{ account.name }}
+        <a href="#" @click="toAccount">{{ account.name }}</a>
       </template>
       <template v-else>
         <a class="nav-link" href="#" @click="showAuth = true">Auth</a>
@@ -100,6 +100,12 @@
         this.reset()
         this.$router.push({
           name: ROUTES.WELCOME
+        })
+      },
+      toAccount () {
+        this.reset()
+        this.$router.push({
+          name: ROUTES.ACCOUNT
         })
       },
       onSuccess () {

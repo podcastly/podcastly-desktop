@@ -1,7 +1,6 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
-import path from 'path'
 
 /**
  * Set `__static` path to static files in production
@@ -27,8 +26,6 @@ function createWindow () {
       nodeIntegration: true
     }
   })
-
-  mainWindow(path.join(__dirname, './assets/1024.png'))
 
   mainWindow.loadURL(winURL)
   mainWindow.on('closed', () => {

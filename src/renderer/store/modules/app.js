@@ -1,9 +1,11 @@
-
 const state = {
   play: {},
   favorites: [],
   search: null,
-  list: []
+  list: [],
+  account: null,
+  token: null,
+  refreshToken: null
 }
 
 const mutations = {
@@ -13,12 +15,12 @@ const mutations = {
       episod
     }
   },
-  addToFavorites (state, entity) {
-    state.favorites.push(entity)
+  setAccount (state, payload) {
+    state.account = payload
   },
-  removeFromFavorites (state, entity) {
-    const index = state.favorites.findIndex(f => f.type === entity.type && f.id === entity.id)
-    state.favorites.splice(index, 1)
+  setTokens (state, {token, refreshToken}) {
+    state.token = token
+    state.refreshToken = refreshToken
   }
 }
 

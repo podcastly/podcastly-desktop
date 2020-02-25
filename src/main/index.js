@@ -21,7 +21,6 @@ function createWindow () {
    */
   mainWindow = new BrowserWindow({
     height: 563,
-    useContentSize: true,
     width: 1000,
     webPreferences: {
       nodeIntegration: true
@@ -29,7 +28,6 @@ function createWindow () {
   })
 
   mainWindow.loadURL(winURL)
-
   mainWindow.on('closed', () => {
     mainWindow = null
   })

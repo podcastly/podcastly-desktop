@@ -8,7 +8,8 @@ const TYPE_COLLECTION = 'collections'
 
 const state = {
   list: [],
-  collections: []
+  collections: [],
+  single: null
 }
 
 const getters = {
@@ -22,15 +23,22 @@ const getters = {
 }
 
 const mutations = {
-  SET_LIST (state, payload) {
+  setList (state, payload) {
     state.list = payload
+  },
+  setCollectionItems (state, payload) {
+    state.single = payload
   }
 }
 
 const actions = {
+  async getCollectionItems({commit}, id) {
+    const { data } = await Api.Exporer.getCollectionItem(id)
+    commit('setCollectionItems', data.data)
+  },
   async getList ({commit}, params = {}) {
     const { data } = await Api.Exporer.getList(params)
-    commit('SET_LIST', data)
+    commit('setList', data)
   }
 }
 

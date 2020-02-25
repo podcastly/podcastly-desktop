@@ -1,17 +1,27 @@
 <template>
-  <div class="collection-item">
+  <div class="collection-item" @click="toCollection">
     <h6 class="subtitle">{{ data.title }}</h6>
     <p>{{ data.tagline }}</p>
   </div>
 </template>
 
 <script>
+  import ROUTES from '../../enums/routes'
+
   export default {
     name: 'ExplorerCollectionsItem',
     props: {
       data: {
         type: Object,
         default: () => ({})
+      }
+    },
+    methods: {
+      toCollection () {
+        this.$router.push({
+          name: ROUTES.COLLECTION,
+          params: { id: this.data.id }
+        })
       }
     }
   }

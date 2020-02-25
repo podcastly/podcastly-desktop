@@ -26,6 +26,12 @@ const router = new Router({
           component: () => import('@/pages/subscriptions/Index')
         },
         {
+          path: '/collection/:id',
+          name: ROUTES.COLLECTION,
+          component: () => import('@/pages/Collection'),
+          props: true
+        },
+        {
           path: '/podcasts/:id',
           name: ROUTES.PODCASTS.VIEW,
           component: () => import('@/pages/podcasts/View'),

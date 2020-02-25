@@ -27,8 +27,6 @@
         <a class="nav-link" href="#" @click="showAuth = true">Auth</a>
       </template>
     </div>
-
-
     <div style="z-index: 9999;">
       <transition name="srcoll-up">
         <auth
@@ -37,7 +35,7 @@
         />
       </transition>
     </div>
-    <div v-if="showAuth" class="overlay" :style="overlayStyle"></div>
+    <div v-if="showAuth" class="overlay" :style="overlayStyle" @click="showAuth = false"></div>
   </div>
 </template>
 

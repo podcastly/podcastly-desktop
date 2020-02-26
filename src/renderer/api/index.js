@@ -5,6 +5,7 @@ import Search from './Search'
 import Categories from './Categories'
 import Auth from './Auth'
 import Subscribe from './Subscribe'
+import Reactions from './Reactions'
 
 export default {
   Exporer,
@@ -13,5 +14,6 @@ export default {
   Search,
   Categories,
   Auth,
-  Subscribe
+  Subscribe,
+  Reactions
 }

@@ -8,6 +8,8 @@
       <div class="ml-3 flex-fill pr-5">
         <div class="subtitle">{{data.title}}</div>
         <sup>{{ publishedAt }}</sup>
+
+        {{ data.reactions }}
       </div>
       <div style="min-width: 180px" class="text-right">
         <div class="subtitle mr-2 d-flex justify-content-end">

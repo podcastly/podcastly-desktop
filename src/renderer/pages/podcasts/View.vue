@@ -26,11 +26,8 @@
           >
             Subscribed
           </button>
-
         </div>
-
       </div>
-
 
       <div class="mx-3 mt-3">
         <p>{{ single.description }}</p>
@@ -58,7 +55,7 @@
         </div>
       </div>
 
-      <podcasts-list
+      <episodes-list
         :data="episodes"
       />
 
@@ -69,11 +66,11 @@
 <script>
   import {mapActions, mapState} from 'vuex'
   import NavBar from '../../components/NavBar'
-  import PodcastsList from './components/PodcastsList'
+  import EpisodesList from './components/EpisodesList'
 
   export default {
     name: 'PodcastView',
-    components: {PodcastsList, NavBar},
+    components: {EpisodesList, NavBar},
     props: {
       id: {
         type: String,
@@ -89,16 +86,18 @@
         await Promise.all([
           this.getSingle(id),
           this.getEpisodes({id}),
+          this.getReactions(id),
           this.getList()
         ])
       } catch (e) {
         console.log(e)
       } finally {
+        console.log('Loaded')
         this.isLoaded = true
       }
     },
     computed: {
-      ...mapState('podcasts', ['single', 'episodes']),
+      ...mapState('podcasts', ['single', 'episodes', 'reactions']),
       ...mapState('subscriptions', ['list']),
       isSubscription () {
         return !!this.list.find(f => f.id === this.id)
@@ -112,7 +111,7 @@
       }
     },
     methods: {
-      ...mapActions('podcasts', ['getSingle', 'getEpisodes']),
+      ...mapActions('podcasts', ['getSingle', 'getEpisodes', 'getReactions']),
       ...mapActions('subscriptions', ['getList', 'subscribe', 'unsubscribe']),
       onSubscribe () {
         this.subscribe(this.single.id)

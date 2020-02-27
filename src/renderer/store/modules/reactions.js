@@ -5,9 +5,10 @@ const state = {
 }
 
 const actions = {
-  async react ({dispatch}, { id, reaction }) {
+  async react ({commit}, { id, reaction }) {
     try {
-      await Api.Reactions.react({ id, reaction })
+      const { data } = await Api.Reactions.react({ id, reaction })
+      commit('podcasts/updateReactions', data, { root: true })
     } catch (e) {
       throw new Error(e)
     }

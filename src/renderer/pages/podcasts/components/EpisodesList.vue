@@ -1,6 +1,6 @@
 <template>
   <div class="podcasts-list">
-    <podcasts-list-item
+    <episodes-list-item
       v-for="episod in data"
       :key="episod.id"
       :data="episod"
@@ -9,10 +9,10 @@
 </template>
 
 <script>
-  import PodcastsListItem from './PodcastsListItem'
+  import EpisodesListItem from './EpisodesListItem'
   export default {
     name: 'PodcastsList',
-    components: {PodcastsListItem},
+    components: {EpisodesListItem},
     props: {
       data: {
         type: Array,

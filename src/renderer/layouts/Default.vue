@@ -1,9 +1,11 @@
 <template>
   <div :class="{'play': play.episod}">
     <player
+      v-if="!isLoading"
       class="player"
       v-bind="play"
       :style="style"
+      :autoplay="autoplay"
     />
     <nav-bar/>
     <router-view/>
@@ -16,6 +18,21 @@
 
   export default {
     components: {NavBar, Player},
+    data: () => ({
+      isLoading: false,
+      autoplay: false
+    }),
+    watch: {
+      play: {
+        handler (value) {
+          this.isLoading = true
+          this.$nextTick(() => {
+            this.autoplay = true
+            this.isLoading = false
+          })
+        }
+      }
+    },
     computed: {
       ...mapState('app', ['play']),
       style () {

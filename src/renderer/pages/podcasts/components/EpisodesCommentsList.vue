@@ -1,11 +1,11 @@
 <template>
-  <div class="episodes-comments-list">
+  <div v-if="!isLoading" class="episodes-comments-list">
     <transition-group
       name="list"
       tag="div"
       appear>
       <episodes-comments-list-item
-        v-for="comment in list"
+        v-for="comment in comments"
         :data="comment"
         :key="comment.id"
         class="mb-2"
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex'
+  import {mapActions} from 'vuex'
   import EpisodesCommentsListItem from './EpisodesCommentsListItem'
 
   export default {
@@ -41,6 +41,7 @@
     },
     data () {
       return {
+        isLoading: true,
         form: {
           tid: this.data.id,
           type: 'episod',
@@ -48,21 +49,24 @@
         }
       }
     },
-    created () {
+    async mounted () {
       const {id} = this.data
-      this.getList(id)
+      await this.getList(id)
+      this.isLoading = false
     },
     computed: {
-      ...mapState('comments', ['list'])
+      comments () {
+        return this.$store.getters['comments/list'](this.data.id)
+      }
     },
     methods: {
       ...mapActions('comments', ['getList', 'create']),
       async onPost () {
         try {
           const {id} = this.data
-
           await this.create(this.form)
           await this.getList(id)
+          this.form.text = null
         } catch (e) {
           console.log(e)
         }

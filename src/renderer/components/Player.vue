@@ -33,15 +33,15 @@
       episod: {
         type: Object,
         default: () => ({})
+      },
+      autoplay: {
+        type: Boolean,
+        default: false
       }
     },
-    watch: {
-      episod: {
-        handler (before, after) {
-          if (before.id !== after.id) {
-            this.player.play()
-          }
-        }
+    mounted () {
+      if (this.autoplay) {
+        this.player.play()
       }
     },
     computed: {

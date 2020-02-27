@@ -6,6 +6,7 @@ import Categories from './Categories'
 import Auth from './Auth'
 import Subscribe from './Subscribe'
 import Reactions from './Reactions'
+import Comments from './Comments'
 
 export default {
   Exporer,
@@ -15,5 +16,6 @@ export default {
   Categories,
   Auth,
   Subscribe,
-  Reactions
+  Reactions,
+  Comments
 }

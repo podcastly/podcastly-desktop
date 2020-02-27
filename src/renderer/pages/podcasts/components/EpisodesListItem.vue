@@ -1,5 +1,5 @@
 <template>
-  <div class="podcasts-item" :class="{played: isPlayed}">
+  <div class="episod-item" :class="{played: isPlayed}">
 
     <div class="d-flex justify-content-start">
       <div>
@@ -9,7 +9,15 @@
         <div class="subtitle">{{data.title}}</div>
         <sup>{{ publishedAt }}</sup>
 
-        {{ data.reactions }}
+        <div @click="toggleComments">Comments</div>
+
+
+        <episodes-comments-list
+          v-if="showComments"
+          :data="data"
+          class="mt-3"
+        />
+
       </div>
       <div style="min-width: 180px" class="text-right">
         <div class="subtitle mr-2 d-flex justify-content-end">
@@ -44,10 +52,11 @@
   import Icon from '../../../components/Icon'
   import soundJson from '../../../assets/json/sound'
   import Reactions from '../../../components/Reactions'
+  import EpisodesCommentsList from './EpisodesCommentsList'
 
   export default {
-    name: 'PodcastsListItem',
-    components: {Icon, Reactions},
+    name: 'EpisodesListItem',
+    components: {Icon, Reactions, EpisodesCommentsList},
     props: {
       data: {
         type: Object,
@@ -56,6 +65,7 @@
     },
     data: () => ({
       showDescription: false,
+      showComments: false,
       soundJson
     }),
     computed: {
@@ -86,6 +96,9 @@
       }
     },
     methods: {
+      toggleComments () {
+        this.showComments = !this.showComments
+      },
       onPlay () {
         this.$store.commit('app/setPlay', {
           podcast: this.single,
@@ -98,7 +111,7 @@
 
 
 <style lang="scss">
-  .podcasts-item {
+  .episod-item {
     cursor: pointer;
     background: #FFFFFF;
     border-radius: 6px;
@@ -106,6 +119,7 @@
     padding: 15px 10px;
     box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.02), 0px 4px 20px rgba(0, 0, 0, 0.05);
     border: 1px solid transparent;
+    transition: all 0.3s ease;
 
     &.played {
       border: 1px solid #B5E24F;
